@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import "./components/sass/style.css";
+import Loader from "./components/Loader";
 
 function App() {
   const [gif, setGif] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("search");
+  const [searchQuery, setSearchQuery] = useState("anime");
+  const [loading, setLoading] = useState(false);
   const searchQ = useRef();
   const searchGif = () => {
-    const val = searchQ.current.value;
-    // if("search" === searchQuery ){
-    //   alert("enter your query to get gifs.")
-    // }
-
-    // else{
-    console.log(searchQuery);
-    setSearchQuery(val);
-
-    // }
+    let val = searchQ.current.value;
+    if (val.length === 0) {
+      alert("enter your query to get gifs.");
+    } else {
+      setSearchQuery(val);
+      searchQ.current.value = " ";
+      setLoading(true);
+    }
   };
 
   const limit = 20;
@@ -26,8 +26,8 @@ function App() {
     fetch(gifs)
       .then((Response) => Response.json())
       .then((response) => {
-        // console.log(response.data);
         setGif(response.data);
+        setLoading(false);
       });
   }, [searchQuery]);
 
@@ -38,27 +38,32 @@ function App() {
           <h1>GifyGif</h1>
         </div>
         <div className="gif-searchbar">
-          <input type="text" ref={searchQ} placeholder="search" />
+          <input id="input" type="text" ref={searchQ} placeholder="search" />
           <button onClick={() => searchGif(searchQuery)}>search</button>
         </div>
       </header>
-      <main className="gif-section">
-        <div className="gif-inner">
-          {gif.map((gifs) => {
-            return (
-              <>
-                <div className="gif-img">
-                  <img
-                    key={Math.random()}
-                    src={gifs.images.original.url}
-                    alt={searchQuery}
-                  ></img>
-                </div>
-              </>
-            );
-          })}
-        </div>
-      </main>
+      {loading ? (
+       <Loader />
+      ) : (
+        <main className="gif-section">
+          <div className="gif-inner">
+            {gif.map((gifs, i) => {
+              return (
+                <>
+                  <div key={i} className="gif-img">
+                    <img
+                      id={i}
+                      key={i}
+                      src={gifs.images.original.url}
+                      alt={searchQuery}
+                    />
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </main>
+      )}
     </>
   );
 }
