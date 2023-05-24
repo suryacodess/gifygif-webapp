@@ -31,7 +31,9 @@ function App() {
         setGif(response.data);
         setLoading(false);
       });
-  }, [searchQuery]);
+  }, [searchQuery, gifs]);
+
+ 
 
   return (
     <>
@@ -42,10 +44,11 @@ function App() {
         <div className="gif-searchbar">
           <input id="input" type="text" ref={searchQ} placeholder="search" />
           <button onClick={() => searchGif(searchQuery)}>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
       </header>
+
       {loading ? (
         <Loader />
       ) : (
@@ -68,6 +71,15 @@ function App() {
           </div>
         </main>
       )}
+
+      {/* <section className="pagination">
+        <button type="button" onClick={() => pageChange("prev")}>
+          prev
+        </button>
+        <button type="button" onClick={() => pageChange("next")}>
+          next
+        </button>
+      </section> */}
     </>
   );
 }
