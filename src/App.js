@@ -11,6 +11,8 @@ function App() {
     let val = searchQ.current.value;
     if (val.length === 0) {
       alert("enter your query to get gifs.");
+    } else if (val === " ") {
+      alert("enter your query to get gifs.");
     } else {
       setSearchQuery(val);
       searchQ.current.value = " ";
@@ -39,11 +41,13 @@ function App() {
         </div>
         <div className="gif-searchbar">
           <input id="input" type="text" ref={searchQ} placeholder="search" />
-          <button onClick={() => searchGif(searchQuery)}><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button onClick={() => searchGif(searchQuery)}>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
       </header>
       {loading ? (
-       <Loader />
+        <Loader />
       ) : (
         <main className="gif-section">
           <div className="gif-inner">
