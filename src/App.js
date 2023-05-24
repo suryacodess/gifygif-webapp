@@ -19,7 +19,7 @@ function App() {
   };
 
   const limit = 20;
-  const stickers = `https://api.giphy.com/v1/stickers/search?api_key=xil6kRlrRdGdYWb8OpOwxwgO9PsuU0wJ&q=${searchQuery}&limit=${limit}&offset=0&rating=pg&lang=en`;
+  // const stickers = `https://api.giphy.com/v1/stickers/search?api_key=xil6kRlrRdGdYWb8OpOwxwgO9PsuU0wJ&q=${searchQuery}&limit=${limit}&offset=0&rating=pg&lang=en`;
   const gifs = `https://api.giphy.com/v1/gifs/search?api_key=xil6kRlrRdGdYWb8OpOwxwgO9PsuU0wJ&q=${searchQuery}&limit=${limit}&offset=0&rating=pg&lang=en`;
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function App() {
         </div>
         <div className="gif-searchbar">
           <input id="input" type="text" ref={searchQ} placeholder="search" />
-          <button onClick={() => searchGif(searchQuery)}>search</button>
+          <button onClick={() => searchGif(searchQuery)}><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </header>
       {loading ? (
